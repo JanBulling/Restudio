@@ -6,7 +6,7 @@ ThemeData theme() {
     primaryColorDark: Color(0xFF890033),
     primaryColorLight: Color(0xFFE75A8E),
     scaffoldBackgroundColor: Colors.white,
-    fontFamily: "",
+    fontFamily: "Poppins",
     backgroundColor: Color(0xFFF5F5F5),
     textTheme: TextTheme(
       headline1: TextStyle(
