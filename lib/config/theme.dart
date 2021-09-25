@@ -5,11 +5,15 @@ ThemeData theme() {
     primaryColor: Color(0xFFDF0052),
     primaryColorDark: Color(0xFF890033),
     primaryColorLight: Color(0xFFE75A8E),
-    scaffoldBackgroundColor: Colors.white,
-    errorColor: Color(0xFF730202),
-    hoverColor: Color(0xFFA290CE),
-    fontFamily: "Poppins",
+
+    errorColor: Color(0xFF730202), // for errors in forms, ...
+    hoverColor: Color(0xFFA290CE), // for links, ...
+    accentColor: Colors.blue, // for stuff like snackbars
     backgroundColor: Color(0xFFF5F5F5),
+    scaffoldBackgroundColor: Colors.white,
+
+    fontFamily: "Poppins",
+
     textTheme: TextTheme(
       headline1: TextStyle(
         color: black,

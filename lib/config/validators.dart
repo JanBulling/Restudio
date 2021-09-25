@@ -11,6 +11,10 @@ bool isValidPassword(String? password) {
   return password.trim().length >= 6;
 }
 
+bool isValidName(String? name) {
+  return !(name == null || name.length < 3);
+}
+
 bool isValidZipCode(String? zip) {
   if (zip == null || zip.length != 5) return false;
   try {

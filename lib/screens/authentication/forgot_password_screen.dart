@@ -1,32 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../bloc/auth_cubit.dart';
-import '../../config/router.dart';
+import '../../components/loading_buttons/loading_elevated_button.dart';
 import '../../config/theme.dart';
 import '../../config/validators.dart';
-import '../../components/loading_buttons/loading_elevated_button.dart';
 
-class LoginScreen extends StatefulWidget {
+class ForgotPasswordScreen extends StatefulWidget {
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _ForgotPasswordScreenState createState() => _ForgotPasswordScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    print("BUILD LOGIN SCREEN");
+    print("BUILD FORGOT PASSWORD SCREEN");
     ThemeData theme = Theme.of(context);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text("Anmelden"),
         elevation: 0.0,
         backgroundColor: Colors.transparent,
         iconTheme: IconThemeData(color: black),
@@ -36,17 +32,16 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Willkommen zurück!", style: theme.textTheme.headline2),
+            Text("Passwort vergessen?", style: theme.textTheme.headline2),
             SizedBox(height: 5),
             Text(
-              "Bitte anmelden um fortzufahren",
-              style: theme.textTheme.headline3!.copyWith(color: Colors.grey.shade500),
+              "Wir senden Ihnen eine E-Mail zum zurücksetzen Ihres Passwortes",
+              style: theme.textTheme.headline6,
             ),
             SizedBox(height: 40),
             Form(
               key: _formKey,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextFormField(
                     controller: _emailController,
@@ -57,28 +52,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       if (!isValidEmail(text)) return "Keine gültige E-Mail Adresse";
                     },
                   ),
-                  SizedBox(height: 10),
-                  TextFormField(
-                    controller: _passwordController,
-                    obscureText: true,
-                    autocorrect: false,
-                    enableSuggestions: false,
-                    keyboardType: TextInputType.visiblePassword,
-                    textInputAction: TextInputAction.done,
-                    decoration: inputDecoration(label: "Passwort", icon: Icons.lock),
-                    validator: (text) {
-                      if (!isValidPassword(text)) return "Passwort muss mindestens 6 Zeichen lang sein";
-                    },
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(context, ROUTE_FORGOT_PASSWORD);
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text("Passwort vergessen?", style: theme.textTheme.bodyText1),
-                    ),
-                  ),
                   SizedBox(height: 20),
                   LoadingElevatedButton<AuthCubit>(
                     onPressed: () {
@@ -86,13 +59,20 @@ class _LoginScreenState extends State<LoginScreen> {
 
                       if (_formKey.currentState!.validate()) {
                         final email = _emailController.text;
-                        final password = _passwordController.text;
 
-                        BlocProvider.of<AuthCubit>(context).loginUser(email: email, password: password);
+                        BlocProvider.of<AuthCubit>(context).resetPassword(email: email);
                       }
                     },
                     onSuccess: (state) {
-                      Navigator.pushNamedAndRemoveUntil(context, ROUTE_CHOOSE_LOCATION, (route) => false);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            "Email zum zurücksetzen des Passwortes an ${state.data.toString()} gesendet",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          backgroundColor: theme.accentColor,
+                        ),
+                      );
                     },
                     onError: (state) {
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -102,11 +82,18 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       );
                     },
-                    child: Text("ANMELDEN"),
+                    child: Text("PASSWORT ZURÜCKSETZEN"),
                   ),
                 ],
               ),
-            )
+            ),
+            Spacer(),
+            Text(
+              "Die Email enthält einen Link für die Zurücksetzung des Passwortes. " +
+                  "Durch den Link werden Sie auf die Webseite von Restudio weitergeleitet, wo sie ein neues " +
+                  "Passwort eingeben können",
+              style: theme.textTheme.bodyText1,
+            ),
           ],
         ),
       ),
@@ -116,7 +103,6 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void dispose() {
     _emailController.dispose();
-    _passwordController.dispose();
     super.dispose();
   }
 }

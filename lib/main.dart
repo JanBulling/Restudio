@@ -26,13 +26,13 @@ class RestudioApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // changes the status bar color to white and the status bar text to black
-    SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
-        statusBarColor: Colors.white,
-        statusBarIconBrightness: Brightness.dark,
-        statusBarBrightness: Brightness.dark,
-      ),
-    );
+    // SystemChrome.setSystemUIOverlayStyle(
+    //   SystemUiOverlayStyle(
+    //     statusBarColor: Colors.white,
+    //     statusBarIconBrightness: Brightness.dark,
+    //     statusBarBrightness: Brightness.dark,
+    //   ),
+    // );
 
     return MaterialApp(
       title: 'Restudio',
@@ -48,10 +48,28 @@ class RestudioApp extends StatelessWidget {
   ///
   /// @return: eighter ROUTE_HOME (/), ROTE_WELCOME (welcome), ROUTE_CHOOSE_LOCATION (choose_location)
   String _getInitialRoute() {
-    String initialRoute = ROUTE_WELCOME;
+    String initialRoute;
 
     if (FirebaseAuth.instance.currentUser == null) {
       initialRoute = ROUTE_WELCOME;
+
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarColor: Colors.white,
+          statusBarIconBrightness: Brightness.dark,
+          statusBarBrightness: Brightness.dark,
+        ),
+      );
+    } else {
+      initialRoute = ROUTE_CHOOSE_LOCATION;
+
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarColor: theme().primaryColor,
+          statusBarIconBrightness: Brightness.light,
+          statusBarBrightness: Brightness.light,
+        ),
+      );
     }
 
     return initialRoute;

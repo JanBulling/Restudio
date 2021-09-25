@@ -58,9 +58,9 @@ class AuthService {
       await _auth.sendPasswordResetEmail(email: email);
     } on FirebaseAuthException catch (err) {
       switch (err.code) {
-        case 'auth/invalid-email':
+        case 'invalid-email':
           throw new Failure("Bitte geben Sie eine gültige E-Mail Adresse an", err);
-        case 'auth/user-not-found':
+        case 'user-not-found':
           throw new Failure("Es existiert kein Account mit dieser E-Mail Adresse", err);
         default:
           throw new Failure("Etwas ist schief gelaufen. Bitte vesuchen Sie es erneut", err);

@@ -34,9 +34,7 @@ class LoadingElevatedButton<B extends BlocBase<BlocState>> extends StatelessWidg
         if (state is LoadingState) {
           return CustomElevatedButton(
             onPressed: () {},
-            child: CircularProgressIndicator(
-              color: black,
-            ),
+            child: CircularProgressIndicator(color: Colors.white),
           );
         } else {
           return CustomElevatedButton(

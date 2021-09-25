@@ -1,32 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../bloc/auth_cubit.dart';
-import '../../config/router.dart';
+import '../../components/loading_buttons/loading_elevated_button.dart';
 import '../../config/theme.dart';
 import '../../config/validators.dart';
-import '../../components/loading_buttons/loading_elevated_button.dart';
+import '../../config/router.dart';
+import './components/privacy_policy.dart';
 
-class LoginScreen extends StatefulWidget {
+class SignUpScreen extends StatefulWidget {
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _SignUpScreenState createState() => _SignUpScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _nameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    print("BUILD LOGIN SCREEN");
+    print("BUILD SIGNUP SCREEN");
     ThemeData theme = Theme.of(context);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text("Anmelden"),
+        title: Text("Account erstellen"),
         elevation: 0.0,
         backgroundColor: Colors.transparent,
         iconTheme: IconThemeData(color: black),
@@ -36,10 +37,10 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Willkommen zurück!", style: theme.textTheme.headline2),
+            Text("Herzlich willkommen", style: theme.textTheme.headline2),
             SizedBox(height: 5),
             Text(
-              "Bitte anmelden um fortzufahren",
+              "Erstellen Sie einen Account!",
               style: theme.textTheme.headline3!.copyWith(color: Colors.grey.shade500),
             ),
             SizedBox(height: 40),
@@ -48,6 +49,17 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  TextFormField(
+                    controller: _nameController,
+                    keyboardType: TextInputType.name,
+                    textCapitalization: TextCapitalization.words,
+                    textInputAction: TextInputAction.next,
+                    decoration: inputDecoration(label: "Vorname & Nachname", icon: Icons.email),
+                    validator: (text) {
+                      if (!isValidName(text)) return "Bitte geben Sie Ihren Namen an";
+                    },
+                  ),
+                  SizedBox(height: 10),
                   TextFormField(
                     controller: _emailController,
                     keyboardType: TextInputType.emailAddress,
@@ -70,25 +82,17 @@ class _LoginScreenState extends State<LoginScreen> {
                       if (!isValidPassword(text)) return "Passwort muss mindestens 6 Zeichen lang sein";
                     },
                   ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(context, ROUTE_FORGOT_PASSWORD);
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text("Passwort vergessen?", style: theme.textTheme.bodyText1),
-                    ),
-                  ),
                   SizedBox(height: 20),
                   LoadingElevatedButton<AuthCubit>(
                     onPressed: () {
                       FocusScope.of(context).unfocus();
 
                       if (_formKey.currentState!.validate()) {
+                        final name = _nameController.text;
                         final email = _emailController.text;
                         final password = _passwordController.text;
 
-                        BlocProvider.of<AuthCubit>(context).loginUser(email: email, password: password);
+                        BlocProvider.of<AuthCubit>(context).signUpUser(email: email, password: password, name: name);
                       }
                     },
                     onSuccess: (state) {
@@ -102,11 +106,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       );
                     },
-                    child: Text("ANMELDEN"),
+                    child: Text("ACCOUNT ERSTELLEN"),
                   ),
                 ],
               ),
-            )
+            ),
+            Spacer(),
+            PrivacyPolicy(),
           ],
         ),
       ),
@@ -115,6 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void dispose() {
+    _nameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();

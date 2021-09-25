@@ -32,7 +32,7 @@ class AuthCubit extends Cubit<BlocState> {
   ///
   ///If an error occured anywhere in the process, the [Error]-State is emitted with an readable error-message
   ///as payload.
-  void signUpUser(String email, String password, String name) {
+  void signUpUser({required String email, required String password, required String name}) {
     emit(LoadingState());
 
     _service.signUp(email, password, name).then((user) => emit(UserLoggedInState(user: user))).catchError((err) {
@@ -50,7 +50,7 @@ class AuthCubit extends Cubit<BlocState> {
   ///
   ///If an error occured anywhere in the process, the [Error]-State is emitted with an readable error-message
   ///as payload.
-  void loginUser(String email, String password) {
+  void loginUser({required String email, required String password}) {
     emit(LoadingState());
 
     _service.logIn(email, password).then((user) => emit(UserLoggedInState(user: user))).catchError((err) {
@@ -86,7 +86,7 @@ class AuthCubit extends Cubit<BlocState> {
   ///
   /// If an error occured anywhere in the process, the [Error]-State is emitted with an readable error-message
   /// as payload.
-  void resetPassword(String email) {
+  void resetPassword({required String email}) {
     emit(LoadingState());
 
     _service.resetPassword(email).then((value) => emit(PasswordResetSuccessfulState(email: email))).catchError((err) {

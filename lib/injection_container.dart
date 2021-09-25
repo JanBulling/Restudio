@@ -13,11 +13,11 @@ void initInjection() {
 
   //+ register services and repositories
   // AuthService for performing firebase authentication
-  inject.registerFactory<AuthService>(
+  inject.registerSingleton<AuthService>(
     (c) => AuthService(c.resolve<FirebaseAuth>()),
   );
   // LocationService for getting the approximate location from a zip code
-  inject.registerFactory<LocationService>(
+  inject.registerSingleton<LocationService>(
     (c) => LocationService(c.resolve<Dio>()),
   );
 }

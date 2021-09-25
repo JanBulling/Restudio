@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:restudio_app/config/router.dart';
 
 import '../../bloc/auth_cubit.dart';
 import '../../config/theme.dart';
@@ -41,12 +42,16 @@ class WelcomeScreen extends StatelessWidget {
               ),
               Spacer(),
               CustomElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, ROUTE_SIGNUP);
+                },
                 child: Text("ACCOUNT ERSTELLEN"),
               ),
               SizedBox(height: 10),
               CustomOutlinedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, ROUTE_LOGIN);
+                },
                 child: Text("ANMELDEN"),
               ),
               SizedBox(height: 20),
@@ -55,12 +60,7 @@ class WelcomeScreen extends StatelessWidget {
                   BlocProvider.of<AuthCubit>(context).signInAnonymously();
                 },
                 onSuccess: (state) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text("Logged in anonymously", style: TextStyle(color: Colors.white)),
-                      backgroundColor: theme.errorColor,
-                    ),
-                  );
+                  Navigator.pushNamedAndRemoveUntil(context, ROUTE_CHOOSE_LOCATION, (route) => false);
                 },
                 onError: (state) {
                   ScaffoldMessenger.of(context).showSnackBar(
