@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
+
 <dict>
 	<key>CLIENT_ID</key>
 	<string>724364317731-atancb51r2sbaj1g23n8ssbsmhmj1ti1.apps.googleusercontent.com</string>
@@ -31,4 +32,5 @@
 	<key>GOOGLE_APP_ID</key>
 	<string>1:724364317731:ios:15e614c9e6aa037a010d96</string>
 </dict>
+
 </plist>
