@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:restudio_app/bloc/auth_cubit.dart';
+import 'package:restudio_app/data/services/auth_service.dart';
+import 'package:restudio_app/injection_container.dart';
+import 'package:restudio_app/screens/authentication/welcome_screen.dart';
 
 const String ROUTE_HOME = "/";
 
@@ -15,6 +20,13 @@ class AppRouter {
     print("Navigate to ${settings.name}");
 
     switch (settings.name) {
+      case ROUTE_WELCOME:
+        return NoAnimationMaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => AuthCubit(inject.resolve<AuthService>()),
+            child: WelcomeScreen(),
+          ),
+        );
       default:
         return null;
     }

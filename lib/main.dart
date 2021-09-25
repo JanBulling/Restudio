@@ -48,7 +48,7 @@ class RestudioApp extends StatelessWidget {
   ///
   /// @return: eighter ROUTE_HOME (/), ROTE_WELCOME (welcome), ROUTE_CHOOSE_LOCATION (choose_location)
   String _getInitialRoute() {
-    String initialRoute = ROUTE_HOME;
+    String initialRoute = ROUTE_WELCOME;
 
     if (FirebaseAuth.instance.currentUser == null) {
       initialRoute = ROUTE_WELCOME;

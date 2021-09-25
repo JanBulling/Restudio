@@ -1,14 +1,20 @@
 import 'package:meta/meta.dart';
 
 @immutable
-abstract class State {}
+abstract class BlocState {}
 
-class Initial extends State {}
+class InitialState extends BlocState {}
 
-class Loading extends State {}
+class LoadingState extends BlocState {}
 
-class Error extends State {
+class ErrorState extends BlocState {
   final String message;
 
-  Error({required this.message});
+  ErrorState({required this.message});
+}
+
+class SuccessState extends BlocState {
+  final Object? data;
+
+  SuccessState([this.data]);
 }

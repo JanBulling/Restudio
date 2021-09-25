@@ -6,26 +6,26 @@ import '../data/services/auth_service.dart';
 
 import 'state.dart';
 
-class PasswordResetSuccessful extends State {
+class PasswordResetSuccessfulState extends SuccessState {
   final String email;
 
-  PasswordResetSuccessful({required this.email});
+  PasswordResetSuccessfulState({required this.email}) : super(email);
 }
 
-class UserLoggedIn extends State {
+class UserLoggedInState extends SuccessState {
   final User user;
 
-  UserLoggedIn({required this.user});
+  UserLoggedInState({required this.user}) : super(user);
 }
 
 /// Auth Cubit
 /// This class is for state management. To use this cubit, wrap the parent-widget in a
 /// `BlocProvider` widget. Then call either `BlocConsumer`, `BlocListener`, or `BlocBuilder`.
 /// To access the functions of this cubit, call `BlocProvider.of<AuthCubit>(context).();`
-class AuthCubit extends Cubit<State> {
+class AuthCubit extends Cubit<BlocState> {
   final AuthService _service;
 
-  AuthCubit(this._service) : super(Initial());
+  AuthCubit(this._service) : super(InitialState());
 
   ///This method calles the [signUpUser] method of the [AuthService]. If the registration
   ///was successful, the [UserLoggedIn]-State is emited with the current user as payload.
@@ -33,15 +33,15 @@ class AuthCubit extends Cubit<State> {
   ///If an error occured anywhere in the process, the [Error]-State is emitted with an readable error-message
   ///as payload.
   void signUpUser(String email, String password, String name) {
-    emit(Loading());
+    emit(LoadingState());
 
-    _service.signUp(email, password, name).then((user) => emit(UserLoggedIn(user: user))).catchError((err) {
+    _service.signUp(email, password, name).then((user) => emit(UserLoggedInState(user: user))).catchError((err) {
       print(err);
 
       if (err is Failure)
-        emit(Error(message: err.message));
+        emit(ErrorState(message: err.message));
       else
-        emit(Error(message: err.toString()));
+        emit(ErrorState(message: err.toString()));
     });
   }
 
@@ -51,15 +51,15 @@ class AuthCubit extends Cubit<State> {
   ///If an error occured anywhere in the process, the [Error]-State is emitted with an readable error-message
   ///as payload.
   void loginUser(String email, String password) {
-    emit(Loading());
+    emit(LoadingState());
 
-    _service.logIn(email, password).then((user) => emit(UserLoggedIn(user: user))).catchError((err) {
+    _service.logIn(email, password).then((user) => emit(UserLoggedInState(user: user))).catchError((err) {
       print(err);
 
       if (err is Failure)
-        emit(Error(message: err.message));
+        emit(ErrorState(message: err.message));
       else
-        emit(Error(message: err.toString()));
+        emit(ErrorState(message: err.toString()));
     });
   }
 
@@ -69,15 +69,15 @@ class AuthCubit extends Cubit<State> {
   ///If an error occured anywhere in the process, the [Error]-State is emitted with an readable error-message
   ///as payload.
   void signInAnonymously() {
-    emit(Loading());
+    emit(LoadingState());
 
-    _service.signInAnonymously().then((user) => emit(UserLoggedIn(user: user))).catchError((err) {
+    _service.signInAnonymously().then((user) => emit(UserLoggedInState(user: user))).catchError((err) {
       print(err.toString());
 
       if (err is Failure)
-        emit(Error(message: err.message));
+        emit(ErrorState(message: err.message));
       else
-        emit(Error(message: err.toString()));
+        emit(ErrorState(message: err.toString()));
     });
   }
 
@@ -87,15 +87,15 @@ class AuthCubit extends Cubit<State> {
   /// If an error occured anywhere in the process, the [Error]-State is emitted with an readable error-message
   /// as payload.
   void resetPassword(String email) {
-    emit(Loading());
+    emit(LoadingState());
 
-    _service.resetPassword(email).then((value) => emit(PasswordResetSuccessful(email: email))).catchError((err) {
+    _service.resetPassword(email).then((value) => emit(PasswordResetSuccessfulState(email: email))).catchError((err) {
       print(err.toString());
 
       if (err is Failure)
-        emit(Error(message: err.message));
+        emit(ErrorState(message: err.message));
       else
-        emit(Error(message: err.toString()));
+        emit(ErrorState(message: err.toString()));
     });
   }
 }
