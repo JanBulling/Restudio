@@ -3,15 +3,18 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import './config/theme.dart';
-import 'injection_container.dart';
-import 'config/router.dart';
+import 'package:restudio_app/config/local_storage.dart';
+import 'package:restudio_app/config/router.dart';
+import 'package:restudio_app/config/theme.dart';
+import 'package:restudio_app/injection_container.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
   initInjection();
+
+  LocalStorage();
 
   runApp(RestudioApp());
 }
@@ -25,15 +28,6 @@ class RestudioApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // changes the status bar color to white and the status bar text to black
-    // SystemChrome.setSystemUIOverlayStyle(
-    //   SystemUiOverlayStyle(
-    //     statusBarColor: Colors.white,
-    //     statusBarIconBrightness: Brightness.dark,
-    //     statusBarBrightness: Brightness.dark,
-    //   ),
-    // );
-
     return MaterialApp(
       title: 'Restudio',
       debugShowCheckedModeBanner: false,
@@ -60,8 +54,18 @@ class RestudioApp extends StatelessWidget {
           statusBarBrightness: Brightness.dark,
         ),
       );
-    } else {
+    } else if (LocalStorage().getLocation().zip.isEmpty) {
       initialRoute = ROUTE_CHOOSE_LOCATION;
+
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarColor: Colors.white,
+          statusBarIconBrightness: Brightness.dark,
+          statusBarBrightness: Brightness.dark,
+        ),
+      );
+    } else {
+      initialRoute = ROUTE_HOME;
 
       SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(

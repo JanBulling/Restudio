@@ -1,9 +1,9 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:restudio_app/config/failure.dart';
+import 'package:restudio_app/config/local_storage.dart';
 import 'package:restudio_app/data/models/location.dart';
-import '../../config/failure.dart';
 
 class LocationService {
   LocationService(this._dio);
@@ -24,7 +24,7 @@ class LocationService {
       final response = await _dio.get(urlEncode);
 
       if (response.statusCode == 200)
-        return Location.fromJson(jsonDecode(response.data));
+        return Location.fromJson(response.data);
       else
         throw Failure(
           "Fehler beim Abrufen der Postleitzahl.",
@@ -39,5 +39,9 @@ class LocationService {
     } catch (err) {
       throw Failure("Etwas ist schief gelaufen. Bitte versuchen Sie es erneut.", err);
     }
+  }
+
+  void safeLocaly(Location location) {
+    LocalStorage().safeLocation(location);
   }
 }

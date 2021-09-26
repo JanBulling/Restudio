@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:restudio_app/config/router.dart';
 
-import '../../bloc/auth_cubit.dart';
-import '../../config/theme.dart';
-import '../../components/buttons/custom_elevated_button.dart';
-import '../../components/buttons/custom_outlined_button.dart';
-import '../../components/loading_buttons/loading_text_button.dart';
-import 'components/privacy_policy.dart';
+import 'package:restudio_app/bloc/auth_cubit.dart';
+import 'package:restudio_app/components/buttons/custom_elevated_button.dart';
+import 'package:restudio_app/components/buttons/custom_outlined_button.dart';
+import 'package:restudio_app/components/loading_buttons/loading_text_button.dart';
+import 'package:restudio_app/config/router.dart';
+import 'package:restudio_app/config/theme.dart';
+import 'package:restudio_app/screens/authentication/components/privacy_policy.dart';
 
 class WelcomeScreen extends StatelessWidget {
   @override
@@ -20,7 +20,7 @@ class WelcomeScreen extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(padding),
+          padding: const EdgeInsets.all(PADDING),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

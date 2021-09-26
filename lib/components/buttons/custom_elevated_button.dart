@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CustomElevatedButton extends StatelessWidget {
-  final Function() onPressed;
+  final Function()? onPressed;
   final Widget child;
   final Color? color;
 

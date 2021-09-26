@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:restudio_app/config/theme.dart';
 
 class CustomTextButton extends StatelessWidget {
-  final Function() onPressed;
+  final Function()? onPressed;
   final Widget child;
   final Color? textColor;
 
@@ -17,7 +17,7 @@ class CustomTextButton extends StatelessWidget {
     return TextButton(
       onPressed: onPressed,
       style: TextButton.styleFrom(
-        primary: textColor ?? black,
+        primary: textColor ?? COLOR_BLACK,
         minimumSize: Size(double.infinity, 50),
       ),
       child: child,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:restudio_app/bloc/state.dart';
 import 'package:restudio_app/config/theme.dart';
 import 'package:restudio_app/components/buttons/custom_text_button.dart';
@@ -34,9 +35,7 @@ class LoadingTextButton<B extends BlocBase<BlocState>> extends StatelessWidget {
         if (state is LoadingState) {
           return CustomTextButton(
             onPressed: () {},
-            child: CircularProgressIndicator(
-              color: black,
-            ),
+            child: CircularProgressIndicator(color: COLOR_BLACK),
           );
         } else {
           return CustomTextButton(

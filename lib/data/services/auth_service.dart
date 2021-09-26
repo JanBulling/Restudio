@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import '../../../config/failure.dart';
+import 'package:restudio_app/config/failure.dart';
 
 class AuthService {
   AuthService(this._auth) {

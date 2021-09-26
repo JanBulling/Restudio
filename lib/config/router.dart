@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restudio_app/bloc/auth_cubit.dart';
+import 'package:restudio_app/bloc/location_cubit.dart';
 import 'package:restudio_app/data/services/auth_service.dart';
+import 'package:restudio_app/data/services/location_service.dart';
 import 'package:restudio_app/injection_container.dart';
 import 'package:restudio_app/screens/authentication/forgot_password_screen.dart';
 import 'package:restudio_app/screens/authentication/login_screen.dart';
@@ -60,7 +62,7 @@ class AppRouter {
       case ROUTE_CHOOSE_LOCATION:
         return NoAnimationMaterialPageRoute(
           builder: (_) => BlocProvider(
-            create: (context) => AuthCubit(inject.resolve<AuthService>()),
+            create: (context) => LocationCubit(inject.resolve<LocationService>()),
             child: ChooseLocationScreen(),
           ),
         );

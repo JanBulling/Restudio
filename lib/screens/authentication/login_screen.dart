@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../bloc/auth_cubit.dart';
-import '../../config/router.dart';
-import '../../config/theme.dart';
-import '../../config/validators.dart';
-import '../../components/loading_buttons/loading_elevated_button.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:restudio_app/bloc/auth_cubit.dart';
+import 'package:restudio_app/components/loading_buttons/loading_elevated_button.dart';
+import 'package:restudio_app/config/router.dart';
+import 'package:restudio_app/config/theme.dart';
+import 'package:restudio_app/config/validators.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -29,10 +29,10 @@ class _LoginScreenState extends State<LoginScreen> {
         title: Text("Anmelden"),
         elevation: 0.0,
         backgroundColor: Colors.transparent,
-        iconTheme: IconThemeData(color: black),
+        iconTheme: IconThemeData(color: COLOR_BLACK),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(padding),
+        padding: const EdgeInsets.all(PADDING),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

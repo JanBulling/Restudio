@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:restudio_app/bloc/state.dart';
-import 'package:restudio_app/config/theme.dart';
 import 'package:restudio_app/components/buttons/custom_elevated_button.dart';
 
 class LoadingElevatedButton<B extends BlocBase<BlocState>> extends StatelessWidget {

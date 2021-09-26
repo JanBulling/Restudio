@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../bloc/auth_cubit.dart';
-import '../../components/loading_buttons/loading_elevated_button.dart';
-import '../../config/theme.dart';
-import '../../config/validators.dart';
-import '../../config/router.dart';
-import './components/privacy_policy.dart';
+import 'package:restudio_app/bloc/auth_cubit.dart';
+import 'package:restudio_app/components/loading_buttons/loading_elevated_button.dart';
+import 'package:restudio_app/config/router.dart';
+import 'package:restudio_app/config/theme.dart';
+import 'package:restudio_app/config/validators.dart';
+import 'package:restudio_app/screens/authentication/components/privacy_policy.dart';
 
 class SignUpScreen extends StatefulWidget {
   @override
@@ -30,10 +30,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
         title: Text("Account erstellen"),
         elevation: 0.0,
         backgroundColor: Colors.transparent,
-        iconTheme: IconThemeData(color: black),
+        iconTheme: IconThemeData(color: COLOR_BLACK),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(padding),
+        padding: const EdgeInsets.all(PADDING),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

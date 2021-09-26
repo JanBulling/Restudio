@@ -1,10 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../config/failure.dart';
-import '../data/services/auth_service.dart';
-
-import 'state.dart';
+import 'package:restudio_app/bloc/state.dart';
+import 'package:restudio_app/config/failure.dart';
+import 'package:restudio_app/data/services/auth_service.dart';
 
 class PasswordResetSuccessfulState extends SuccessState {
   final String email;
