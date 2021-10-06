@@ -32,4 +32,8 @@ class LocationCubit extends Cubit<BlocState> {
   void safeLocaly(Location location) {
     _service.safeLocaly(location);
   }
+
+  Location getFromLocal() {
+    return _service.getFromLocal();
+  }
 }

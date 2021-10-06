@@ -42,6 +42,10 @@ class LocationService {
   }
 
   void safeLocaly(Location location) {
-    LocalStorage().safeLocation(location);
+    LocalStorage.safeLocation(location);
+  }
+
+  Location getFromLocal() {
+    return LocalStorage.getLocation();
   }
 }

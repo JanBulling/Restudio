@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:kiwi/kiwi.dart';
 import 'package:restudio_app/data/services/auth_service.dart';
 import 'package:restudio_app/data/services/location_service.dart';
+import 'package:restudio_app/data/services/restaurant_service.dart';
 
 KiwiContainer inject = KiwiContainer();
 
@@ -19,5 +20,8 @@ void initInjection() {
   // LocationService for getting the approximate location from a zip code
   inject.registerSingleton<LocationService>(
     (c) => LocationService(c.resolve<Dio>()),
+  );
+  inject.registerSingleton<RestaurantService>(
+    (c) => RestaurantService(),
   );
 }

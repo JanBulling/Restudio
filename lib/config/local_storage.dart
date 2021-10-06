@@ -1,39 +1,24 @@
 import 'package:restudio_app/data/models/location.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:restudio_app/main.dart';
 
 class LocalStorage {
-  static final LocalStorage _instance = LocalStorage._privateConstructor();
-
-  factory LocalStorage() {
-    return _instance;
+  static void safeLocation(Location location) {
+    prefs.setString(Location.zipKey, location.zip);
+    prefs.setString(Location.cityKey, location.city);
+    prefs.setString(Location.districtKey, location.district);
+    prefs.setString(Location.stateKey, location.state);
+    prefs.setDouble(Location.latitudeKey, location.latitude);
+    prefs.setDouble(Location.longitudeKey, location.longitude);
   }
 
-  late SharedPreferences _prefs;
-
-  LocalStorage._privateConstructor() {
-    SharedPreferences.getInstance().then((prefs) {
-      _prefs = prefs;
-      print("Preferences initialized");
-    });
-  }
-
-  void safeLocation(Location location) {
-    _prefs.setString(Location.zipKey, location.zip);
-    _prefs.setString(Location.cityKey, location.city);
-    _prefs.setString(Location.districtKey, location.district);
-    _prefs.setString(Location.stateKey, location.state);
-    _prefs.setDouble(Location.latitudeKey, location.latitude);
-    _prefs.setDouble(Location.longitudeKey, location.longitude);
-  }
-
-  Location getLocation() {
+  static Location getLocation() {
     return Location(
-      zip: _prefs.getString(Location.zipKey) ?? "",
-      city: _prefs.getString(Location.cityKey) ?? "",
-      district: _prefs.getString(Location.districtKey) ?? "",
-      state: _prefs.getString(Location.stateKey) ?? "",
-      latitude: _prefs.getDouble(Location.latitudeKey) ?? 0.0,
-      longitude: _prefs.getDouble(Location.longitudeKey) ?? 0.0,
+      zip: prefs.getString(Location.zipKey) ?? "",
+      city: prefs.getString(Location.cityKey) ?? "",
+      district: prefs.getString(Location.districtKey) ?? "",
+      state: prefs.getString(Location.stateKey) ?? "",
+      latitude: prefs.getDouble(Location.latitudeKey) ?? 0.0,
+      longitude: prefs.getDouble(Location.longitudeKey) ?? 0.0,
     );
   }
 }
